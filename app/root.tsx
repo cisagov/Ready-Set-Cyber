@@ -1,6 +1,5 @@
 import { cssBundleHref } from "@remix-run/css-bundle";
-import type { LinksFunction, LoaderFunctionArgs } from "@remix-run/node";
-import { json } from "@remix-run/node";
+import type { LinksFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -13,10 +12,11 @@ import pkg from "@trussworks/react-uswds";
 const { GovBanner, Header, Title, PrimaryNav, NavMenuButton } = pkg;
 import trussStyles from "@trussworks/react-uswds/lib/index.css";
 import uswdsStyles from "@trussworks/react-uswds/lib/uswds.css";
-import { useState } from "react";
+import { useState, createContext, useContext } from "react";
 
-import { getUser } from "~/session.server";
 import stylesheet from "~/tailwind.css";
+
+import logo from "./images/CISA_Logo.png";
 
 export const links: LinksFunction = () => [
   { rel: "stylesheet", href: stylesheet },
@@ -24,10 +24,6 @@ export const links: LinksFunction = () => [
   { rel: "stylesheet", href: uswdsStyles },
   ...(cssBundleHref ? [{ rel: "stylesheet", href: cssBundleHref }] : []),
 ];
-
-export const loader = async ({ request }: LoaderFunctionArgs) => {
-  return json({ user: await getUser(request) });
-};
 
 const navMenuItems = [
   <a href="simplequestions" key="two" className="usa-nav__link">
@@ -37,10 +33,21 @@ const navMenuItems = [
     <span>Home</span>
   </a>,
 ];
+interface FeedbackcontextType {
+  feedback: string;
+  setFeedback: (feedback: string) => void;
+}
+const FeedbackContext = createContext<FeedbackcontextType>({
+  feedback: "",
+  setFeedback: () => {
+    null;
+  },
+});
 
 export default function App() {
   const [expanded, setExpanded] = useState(false);
   const onClick = (): void => setExpanded((prvExpanded) => !prvExpanded);
+  const [feedback, setFeedback] = useState("");
 
   return (
     <html lang="en" className="h-full">
@@ -54,10 +61,29 @@ export default function App() {
       <body className="h-full">
         <GovBanner />
         <div className={`usa-overlay ${expanded ? "is-visible" : ""}`}></div>
-        <Header basic={true}>
+        <Header basic={true} style={{ borderBottom: "10px solid #005288" }}>
           <div className="usa-nav-container">
+            <img
+              src={logo}
+              alt="Logo"
+              style={{
+                height: "75px",
+                width: "75px",
+                display: "block",
+                marginLeft: "auto",
+                marginRight: "auto",
+              }}
+            />
             <div className="usa-navbar">
-              <Title>Ready-Set-Cyber</Title>
+              <Title
+                style={{
+                  color: "#005288",
+                  fontStyle: "bold",
+                  textAlign: "center",
+                }}
+              >
+                Ready Set Cyber
+              </Title>
               <NavMenuButton onClick={onClick} label="Menu" />
             </div>
             <PrimaryNav
@@ -69,11 +95,17 @@ export default function App() {
             </PrimaryNav>
           </div>
         </Header>
-        <Outlet />
+        <FeedbackContext.Provider value={{ feedback, setFeedback }}>
+          <Outlet />
+        </FeedbackContext.Provider>
         <ScrollRestoration />
         <Scripts />
         <LiveReload />
       </body>
     </html>
   );
+}
+
+export function useFeedback() {
+  return useContext(FeedbackContext);
 }
