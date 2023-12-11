@@ -26,8 +26,6 @@ export default function Index() {
           headerFirst
           gridLayout={{ tablet: { col: 6 } }}
           containerProps={{ className: "border-ink" }}
-          onClick={() => navigate("smallBusiness")}
-          className="hover:shadow-xl"
         >
           <CardHeader className="bg-base-lightest">
             <h3 className="usa-card__heading ">Small Business</h3>
@@ -42,14 +40,19 @@ export default function Index() {
             <p>Minimal number of IP addresses</p>
             <p>Less than 200 active end points{")"}</p>
           </CardHeader>
-          <CardBody className="padding-top-3 bg-base-lightest"></CardBody>
+          <CardBody className="padding-top-3 bg-base-lightest">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
+              onClick={() => navigate("smallBusiness")}
+            >
+              Start Here
+            </button>
+          </CardBody>
         </Card>
         <Card
           headerFirst
           gridLayout={{ tablet: { col: 6 } }}
           containerProps={{ className: "border-ink" }}
-          onClick={() => navigate("majorOrganization")}
-          className="hover:shadow-lg shadow-sm"
         >
           <CardHeader className="bg-base-lightest">
             <h3 className="usa-card__heading">Major Organization</h3>
@@ -57,7 +60,14 @@ export default function Index() {
               Are you an organization with a dedicated IT and security program?
             </p>
           </CardHeader>
-          <CardBody className="padding-top-3 bg-base-lightest "></CardBody>
+          <CardBody className="padding-top-3 bg-base-lightest ">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4"
+              onClick={() => navigate("majorOrganization")}
+            >
+              Start Here
+            </button>
+          </CardBody>
         </Card>
       </CardGroup>
     </main>

@@ -1,11 +1,11 @@
 import React, { createContext, useState, useContext, ReactNode } from "react";
 
-import { simpleQuestion, Answer, simpleAnswers, orgQuestion } from "~/types";
+import { simpleQuestion, Answer, orgQuestion } from "~/types";
 
 interface QuestionContextType {
   questions: simpleQuestion[] | orgQuestion[];
   currentQuestionIndex: number;
-  answers: simpleAnswers;
+  answers: Answer[];
   handleAnswer: (questionId: number, answer: Answer) => void;
 }
 
@@ -25,7 +25,7 @@ const QuestionsProvider: React.FC<{
   children: ReactNode;
 }> = ({ questions, children }) => {
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState<number>(0);
-  const [answers, setAnswers] = useState<simpleAnswers>({});
+  const [answers, setAnswers] = useState<Answer[]>([]);
 
   const handleAnswer = (questionId: number, answer: Answer) => {
     console.log(JSON.stringify(answers));

@@ -2,11 +2,23 @@ import React from "react";
 
 import { useQuestions } from "~/contexts/QuestionsContext";
 
-const Question: React.FC = () => {
+interface QuestionProps {
+  setShowResults: (show: boolean) => void;
+}
+
+const Question: React.FC<QuestionProps> = ({ setShowResults }) => {
   const { questions, currentQuestionIndex, handleAnswer } = useQuestions();
 
+  const handleResultOnClick = () => {
+    setShowResults(true);
+  };
+
   if (currentQuestionIndex >= questions.length) {
-    return <div>Complete Go To results!</div>;
+    return (
+      <div>
+        <button onClick={handleResultOnClick}>See Results</button>
+      </div>
+    );
   }
 
   const question = questions[currentQuestionIndex];

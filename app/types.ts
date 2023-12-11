@@ -4,8 +4,10 @@ export interface simpleQuestion {
   id: number;
   text: string;
   type: "yes/no" | "multi-select";
+  definintions?: string;
   options?: string[];
   resource?: string;
+  resourceDesc?: string;
 }
 
 export interface orgQuestion {
@@ -13,6 +15,15 @@ export interface orgQuestion {
   text: string;
   type: "cpg";
   options: string[];
+  level?: number;
+  resource?: string;
+  resourceText?: string;
+  resDesc?: string;
+  secondResource?: string;
+  secondResourceText?: string;
+  secondResDesc?: string;
 }
 
-export type simpleAnswers = Record<number, Answer>;
+export interface answers {
+  answer: Answer[];
+}

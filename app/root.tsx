@@ -26,10 +26,13 @@ export const links: LinksFunction = () => [
 ];
 
 const navMenuItems = [
-  <a href="simplequestions" key="two" className="usa-nav__link">
-    <span>Questionairre</span>
+  <a href="smallBusiness" key="two" className="usa-nav__link">
+    <span>Small Business</span>
   </a>,
-  <a href="/" key="two" className="usa-nav__link">
+  <a href="majorOrganization" key="two" className="usa-nav__link">
+    <span>Major Organization</span>
+  </a>,
+  <a href="/" key="three" className="usa-nav__link">
     <span>Home</span>
   </a>,
 ];
