@@ -11,7 +11,7 @@ import {
 import pkg from "@trussworks/react-uswds";
 const { GovBanner, Header, Title, PrimaryNav, NavMenuButton } = pkg;
 import trussStyles from "@trussworks/react-uswds/lib/index.css";
-import uswdsStyles from "@trussworks/react-uswds/lib/uswds.css";
+import uswdsStyles from "./styles.css";
 import { useState, createContext, useContext } from "react";
 
 import stylesheet from "~/tailwind.css";
